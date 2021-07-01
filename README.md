@@ -8,7 +8,7 @@ Prior to deciding what type of forecasting algorithm to use, a time-series analy
 
 An example of seasonal decomposition for order quantity per client:
 
-<img src="https://github.com/quincyho/Demand-Forecasting-with-Holt-Winters-Methods/blob/main/Images/Seasonal%20decomposition.PNG" width="700">
+<img src="https://github.com/quincyho/Demand-Forecasting-with-Holt-Winters-Methods/blob/main/Images/Seasonal%20decomposition.PNG" width="600">
 
 Since the data contained both stationary and non-stationary trends, combined with the fact that only 2 different forecasting models should be run for all scenarios each, selection of forecasting algorithm uses Holt-Winters' Additive and Holt-Winters' Multiplicative models.
 
@@ -29,3 +29,20 @@ By using another method with similar components, we are able to compare and avoi
 <img src="https://github.com/quincyho/Demand-Forecasting-with-Holt-Winters-Methods/blob/main/Images/Add%20formulas.PNG" width="400">
 
 There is no denominator in the c_t component which will require further investigation if 0 is inputted hence this presents a better fitting model. The 3 smoothing equations are exactly the same as described in the previous method except for c_t where the first y component is replaced by (D_t-S_t) and the forecast equation F_{t+1} is wholly additive rather than multiplicative of the seasonal factor c_t. 
+
+### Comparison of the Two Models
+The two variations of Holt-Winters’ method vary how the seasonal component affects the baseline equation. Generally, the additive method yields better results when the seasonal variations are constant whereas the multiplicative method is better utilised when seasonal variations are altering proportionally to the level of the series. Source: https://kourentzes.com/forecasting/2014/11/09/additive-and-multiplicative-seasonality/
+
+Below shows a better comparison between both methods and their base data entries by taking client c2 and material 11000851. It is observed that the multiplicative method provides a much better forecast (peaks and constant demands) with the backfilled observation data compared to the additive method that fills the NaN values with zeros.
+
+<img src="https://github.com/quincyho/Demand-Forecasting-with-Holt-Winters-Methods/blob/main/Images/Comparison.PNG" width="600">
+
+### Examples of the Working Program for Forecasting
+
+Using Holt-Winters' Additive Model to perform demand forecast per client (original data was used, without backfilling):
+
+<img src="https://github.com/quincyho/Demand-Forecasting-with-Holt-Winters-Methods/blob/main/Images/Client%20forecast%20add.png" width="600">
+
+Using Holt-Winters' Multiplicative Model to perform demand forecast per client (augmented data was used, with backfilling):
+
+<img src="https://github.com/quincyho/Demand-Forecasting-with-Holt-Winters-Methods/blob/main/Images/Client%20forecast%20mul.PNG" width="600">
